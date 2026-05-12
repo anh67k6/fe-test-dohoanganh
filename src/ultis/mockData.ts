@@ -1,4 +1,4 @@
-import { type Task } from '../types/task';
+import type { Task } from '@type/task'
 
 export const mockTasks: Task[] = [
   { id: 't1', title: 'Khởi tạo dự án Vite', description: 'Setup React 18 + TS strict mode', status: 'done', priority: 'high', assignee: 'Dev A', dueDate: '2026-05-12', createdAt: '2026-05-10', tags: ['setup', 'frontend'] },
