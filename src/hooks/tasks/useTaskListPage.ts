@@ -1,4 +1,4 @@
-import { Modal, type TableProps } from 'antd'
+import { App, type TableProps } from 'antd'
 import dayjs, { type Dayjs } from 'dayjs'
 import { useEffect, useMemo, useState, type Key } from 'react'
 import { priorityRank } from '@component/tasks/taskUi'
@@ -63,6 +63,7 @@ const getSortedTasks = (tasks: Task[], sortState: SortState) => {
 }
 
 export function useTaskListPage() {
+  const { modal } = App.useApp()
   const dispatch = useAppDispatch()
   const filters = useAppSelector(selectTaskFilters)
   const pagination = useAppSelector(selectTasksPagination)
@@ -73,6 +74,7 @@ export function useTaskListPage() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingTask, setEditingTask] = useState<Task | null>(null)
   const [sortState, setSortState] = useState<SortState>({})
+  const [searchText, setSearchText] = useState(filters.searchText)
 
   const hasActiveSort = Boolean(sortState.field && sortState.order)
 
@@ -102,6 +104,18 @@ export function useTaskListPage() {
       )
     }
   }, [dispatch, filteredTasks.length, pagination.currentPage, pagination.pageSize])
+
+  useEffect(() => {
+    if (searchText === filters.searchText) {
+      return
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      dispatch(setFilter({ searchText }))
+    }, 300)
+
+    return () => window.clearTimeout(timeoutId)
+  }, [dispatch, filters.searchText, searchText])
 
   const deadlineRangeValue: [Dayjs | null, Dayjs | null] | null =
     filters.dateRange.from || filters.dateRange.to
@@ -143,7 +157,7 @@ export function useTaskListPage() {
   }
 
   const handleDeleteTask = (task: Task) => {
-    Modal.confirm({
+    modal.confirm({
       title: 'Delete task?',
       content: `Are you sure you want to delete "${task.title}"?`,
       okText: 'Delete',
@@ -156,7 +170,7 @@ export function useTaskListPage() {
   }
 
   const handleBulkDelete = () => {
-    Modal.confirm({
+    modal.confirm({
       title: 'Delete selected tasks?',
       content: `Are you sure you want to delete ${selectedRowKeys.length} selected tasks?`,
       okText: 'Delete',
@@ -195,11 +209,12 @@ export function useTaskListPage() {
   }
 
   const handleResetFilters = () => {
+    setSearchText('')
     dispatch(resetFilters())
   }
 
-  const handleSearchChange = (searchText: string) => {
-    dispatch(setFilter({ searchText }))
+  const handleSearchChange = (nextSearchText: string) => {
+    setSearchText(nextSearchText)
   }
 
   const handleStatusFilterChange = (status: TaskStatus[]) => {
@@ -242,6 +257,7 @@ export function useTaskListPage() {
     filters,
     isModalOpen,
     modalMode,
+    searchText,
     selectedRowKeys,
     sortState,
     tablePagination,

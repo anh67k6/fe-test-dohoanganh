@@ -13,6 +13,7 @@ function TaskListPage() {
     filters,
     isModalOpen,
     modalMode,
+    searchText,
     selectedRowKeys,
     sortState,
     tablePagination,
@@ -51,6 +52,7 @@ function TaskListPage() {
 
         <TaskFiltersCard
           filters={filters}
+          searchText={searchText}
           deadlineRangeValue={deadlineRangeValue}
           onDateRangeChange={handleDateRangeChange}
           onPriorityChange={handlePriorityFilterChange}

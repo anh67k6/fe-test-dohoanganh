@@ -12,7 +12,7 @@ export default defineConfig({
       '@hook': fileURLToPath(new URL('./src/hooks', import.meta.url)),
       '@store': fileURLToPath(new URL('./src/store', import.meta.url)),
       '@type': fileURLToPath(new URL('./src/types', import.meta.url)),
-      '@utils': fileURLToPath(new URL('./src/ultis', import.meta.url)),
+      '@utils': fileURLToPath(new URL('./src/utils', import.meta.url)),
     },
   },
 })

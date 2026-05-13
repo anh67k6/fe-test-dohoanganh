@@ -69,10 +69,7 @@ const applySearchFilter = (task: Task, searchText: string) => {
     return true
   }
 
-  const normalizedSearchText = searchText.toLowerCase()
-  const searchableValues = [task.title, task.description, task.assignee, ...(task.tags ?? [])]
-
-  return searchableValues.some((value) => value?.toLowerCase().includes(normalizedSearchText))
+  return task.title.toLowerCase().includes(searchText.toLowerCase())
 }
 
 const applyStatusFilter = (task: Task, statuses: TaskStatus[]) => {

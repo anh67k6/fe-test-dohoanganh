@@ -4,9 +4,11 @@ import { priorityOptions, statusOptions } from '@component/tasks/taskUi'
 import type { TaskFilters, TaskPriority, TaskStatus } from '@type/task'
 
 const { RangePicker } = DatePicker
+const { Search } = Input
 
 type TaskFiltersCardProps = {
   filters: TaskFilters
+  searchText: string
   deadlineRangeValue: [Dayjs | null, Dayjs | null] | null
   onDateRangeChange: (dateStrings: [string, string]) => void
   onPriorityChange: (priority: TaskPriority | null) => void
@@ -16,6 +18,7 @@ type TaskFiltersCardProps = {
 
 function TaskFiltersCard({
   filters,
+  searchText,
   deadlineRangeValue,
   onDateRangeChange,
   onPriorityChange,
@@ -25,9 +28,10 @@ function TaskFiltersCard({
   return (
     <Card>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <Input
-          placeholder="Search title, description, assignee, or tags"
-          value={filters.searchText}
+        <Search
+          allowClear
+          placeholder="Search title"
+          value={searchText}
           onChange={(event) => onSearchChange(event.target.value)}
         />
         <Select

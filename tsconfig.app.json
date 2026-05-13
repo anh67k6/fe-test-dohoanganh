@@ -22,7 +22,7 @@
       "@hook/*": ["src/hooks/*"],
       "@store/*": ["src/store/*"],
       "@type/*": ["src/types/*"],
-      "@utils/*": ["src/ultis/*"]
+      "@utils/*": ["src/utils/*"]
     },
 
     /* Linting */
