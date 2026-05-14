@@ -1,73 +1,103 @@
-# React + TypeScript + Vite
+# TaskBoard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ứng dụng quản lý công việc được xây dựng bằng React + TypeScript + Vite, sử dụng Redux Toolkit để quản lý state và Ant Design để xây dựng giao diện.
 
-Currently, two official plugins are available:
+## Cài đặt và chạy dự án
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### 1. Cài đặt dependencies
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Chạy môi trường development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+### 3. Build production
+
+```bash
+npm run build
+```
+
+### 4. Kiểm tra lint
+
+```bash
+npm run lint
+```
+
+### 5. Preview bản build
+
+```bash
+npm run preview
+```
+
+## Tính năng đã làm
+
+### 1. Dashboard
+
+- Hiển thị tổng số task
+- Hiển thị số lượng task theo từng trạng thái: Todo, In Progress, Done
+- Hiển thị progress theo trạng thái
+- Hiển thị 5 task được tạo gần nhất
+
+### 2. Quản lý danh sách task
+
+- Hiển thị danh sách task bằng Ant Design Table
+- Phân trang danh sách task
+- Sắp xếp theo:
+  - Title
+  - Priority
+  - Deadline
+- Cập nhật nhanh trạng thái task ngay trên bảng
+
+### 3. Bộ lọc và tìm kiếm
+
+- Tìm kiếm theo title bằng `Input.Search`
+- Debounce 300ms khi tìm kiếm
+- Lọc theo nhiều trạng thái cùng lúc
+- Lọc theo priority
+- Lọc theo khoảng deadline bằng `DatePicker.RangePicker`
+- Reset toàn bộ bộ lọc
+- Logic filter được xử lý qua Redux selector
+
+### 4. CRUD task
+
+- Tạo task mới
+- Chỉnh sửa task
+- Xóa từng task với hộp thoại xác nhận
+- Xóa nhiều task cùng lúc
+
+### 5. Form và trải nghiệm giao diện
+
+- Sử dụng Ant Design Form để validate dữ liệu đầu vào
+- Giao diện kết hợp Ant Design và Tailwind CSS
+- Có điều hướng giữa Dashboard và Task List
+- Có hỗ trợ responsive layout cơ bản
+
+## Công nghệ sử dụng
+
+- React 19
+- TypeScript
+- Vite
+- Redux Toolkit
+- React Router
+- Ant Design
+- Tailwind CSS
+
+## Demo
+
+### Dashboard
+
+![Dashboard](./demo/dashboard.png)
+
+### Task List
+
+![Task List](./demo/tasklist.png)
+
+### Task Modal
+
+![Task Modal](./demo/taskmodal.png)
+
